@@ -66,7 +66,7 @@ python main.py
 
 #### 4.4 页面效果图 
 
-
+![](preview.png)
 
 ### 5 部署相关 
 
