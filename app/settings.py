@@ -28,7 +28,7 @@ DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S.%f'
 DATE_FORMAT = '%Y-%m-%d'
 
 
-#
+# TQ_APP_ID及TQ_APP_SECRET仅用于开发环境，请勿用在生产环境及非法用途
 TQ_APP_ID = '47187436'
 TQ_APP_SECRET = 'Z3Y5WqcJ'
 TQ_HOST = 'http://v1.yiketianqi.com'
