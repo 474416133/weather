@@ -17,15 +17,21 @@ from app.common.errors import BizError
 logger = logging.getLogger('error')
 
 def handle_http_exception(e):
+    logger.exception('httperror.')
     if 'api' in request.url:
         return FAIL(err_code=e.code, err_msg=e.description)
-    logger.exception('error.')
+
+    # todo 需要提供一个错误页面
     raise e
 
 
 def handle_user_exception(e):
-    print('error1. url: {}'.format(request.url))
-    return FAIL(err_code=e.error_code, err_msg=e.error_remark)
+    logger.exception('bizerror.')
+    if 'api' in request.url:
+        return FAIL(err_code=e.error_code, err_msg=e.error_remark)
+
+    # todo 需要提供一个错误页面
+    raise e
 
 
 def init_app(app):
