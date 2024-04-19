@@ -67,3 +67,6 @@ class IError(Enum):
         :return:
         """
         raise self.exception(error_remark, *args)
+
+    def __call__(self, error_remark=None, *args):
+        return self.exception(error_remark, *args)

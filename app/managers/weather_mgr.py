@@ -34,5 +34,5 @@ def get_city_weather(city=None):
     if 'errcode' in ret:
         logger.error('天气api调用失败, 返回错误码: {}, 错误信息:{}'.format(ret.get('errcode'),
                                                                       ret.get('errmsg')))
-        raise ERROR.exception('天气api调用失败')
+        raise ERROR.TA_API_INVOKE_ERROR('天气api调用失败')
     return create_weather_from_tq(**ret)

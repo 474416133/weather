@@ -33,7 +33,7 @@ def index():
             data['err_msg'] = '查询不到【{}】的天气信息, 返回【{}】的天气信息'.format(city, data['data']['city'])
             data['err_code'] = 9999
     except BizError as e:
-        data = create_response(e.error_remark, e.error_code)
+        data = create_response(e.error_remark, e.error_code, {})
     except:
         logger.exception('something wrong')
         data = create_response('服务内部错误', 500, {})
