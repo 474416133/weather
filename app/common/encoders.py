@@ -9,9 +9,9 @@
 """
 import json
 import datetime
-from sqlalchemy.ext.declarative.api import DeclarativeMeta
+from sqlalchemy.ext.declarative import DeclarativeMeta
 from sqlalchemy.orm import class_mapper
-from sqlalchemy.engine.result import RowProxy
+from sqlalchemy.engine import Row
 from flask import current_app
 
 
@@ -33,7 +33,7 @@ class AlchemyEncoder(json.JSONEncoder):
                 value = o.__getattribute__(field)
                 data[field] = self.default(value)
             return data
-        elif isinstance(o, RowProxy):
+        elif isinstance(o, Row):
             data = {}
             for field in o.keys():
                 data[field] = self.default(o[field])

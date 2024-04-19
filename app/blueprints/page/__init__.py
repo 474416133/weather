@@ -24,7 +24,7 @@ bp = Blueprint(name='page',
 @bp.route('', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
-        city = None
+        city = '广州'
     else:
         city = request.form['city']
     try:
