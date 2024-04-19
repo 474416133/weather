@@ -36,7 +36,7 @@ def index():
         data = create_response(e.error_remark, e.error_code)
     except:
         logger.exception('something wrong')
-        data = create_response('server internal ERROR ', 500, {})
+        data = create_response('服务内部错误', 500, {})
 
     return render_template('index.html', **data)
 
