@@ -25,7 +25,7 @@
 #### 4.1 获取代码 
 
 ```
-git clone ....   
+git clone https://github.com/474416133/weather.git 
 # 创建虚拟环境
 cd weather 
 pip install -r requirements/dev.txt
@@ -64,15 +64,53 @@ python main.py
 
 
 
+#### 4.4 页面效果图 
+
+
+
 ### 5 部署相关 
 
-#### 5.1 生成docker镜像 
+> 未实际部署，仅供参考
 
-#### 5.2 uwsgi.ini配置
+#### 5.1 生成docker镜像  
 
-#### 5.3 docker run 命令
+```
+# 采用官方 python:3.11 镜像
+# 也可以基于python:3.11镜像 构建自己的镜像
 
-#### 5.4 ssl与nginx的配置
+cd weather/docker-image
+docker build -t python3.11-tz8:20240419 . 
+```
+
+
+
+#### 5.2 uwsgi.ini配置 
+
+```
+1 创建虚拟环境， 假设绝对目录为 /usr/src/app/venv
+2 配置uwsgi.ini中的home和home和PYTHONHOME变量
+home = /usr/src/app/venv
+
+```
+
+
+
+#### 5.3 docker run 命令 
+
+> 参考 https://docs.docker.com/reference/cli/docker/container/run/   
+
+```
+cd weather 
+chmod +x docker-run.sh
+./docker-run.sh
+
+```
+
+
+
+#### 5.4 ssl与nginx的配置 
+
+> 参考 https://nginx.org/en/docs/http/configuring_https_servers.html 
 
 
 
