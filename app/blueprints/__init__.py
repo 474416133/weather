@@ -9,6 +9,9 @@
 """
 
 from . import  api
+from . import page
+
 
 def init_app(app):
     api.bp.register(app, {})
+    page.bp.register(app, {})

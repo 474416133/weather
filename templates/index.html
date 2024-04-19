@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/weather.css')}}">
+{% endblock %}
+{% block content %}
+<!-- Weather -->
+
+{% macro weather_hour_card(item) -%}
+    <div class="p-4 d-flex flex-column justify-content-center align-items-center">
+        <span>{{item.hours}}</span>
+        <img src="{{url_for('static', filename='svg/weather')}}/{{item.wea_img}}.svg">
+        <span>{{item.tem}}</span>
+    </div>
+{%- endmacro %}
+
+
+
+{% macro weather_hour_cards(items) -%}
+    <div class="weather__forecast d-flex flex-row justify-content-center align-items-center mt-3">
+    {% for item in items -%}
+        {{ weather_hour_card(item) }}
+
+    {%- endfor %}
+    </div>
+
+
+{%- endmacro %}
+
+
+<div class="container mt-5">
+    <form id="form" method="post" action="{{url_for('page.index')}}" >
+        <div class="input-group mb-3 align-items-center">
+
+            {% if err_code > 0 -%}
+            {% set is_valid = 'is-valid' %}
+            {% else %}
+            {% set is_valid = '' %}
+            {%- endif %}
+          <input type="text" name="city"  class="form-control {{is_valid}}" placeholder="请输入要查询的城市" aria-label="请输入要查询的城市" aria-describedby="button-addon2" value="{{data.city}}" required>
+          <div class="valid-feedback">
+              {{ err_msg }}
+            </div>
+            <button class="btn btn-primary" type="submit" id="button-addon2">查询天气</button>
+        </div>
+    </form>
+
+    <div class="d-flex flex-row justify-content-center align-items-center">
+        <div class="weather__card">
+            <div class="d-flex flex-row justify-content-center align-items-center">
+                <div class="p-3">
+                    <h2>{{data.tem}}°</h2>
+                </div>
+                <div class="p-3">
+                    <img src="{{url_for('static', filename='svg/weather')}}/{{data.wea_day_img}}.svg">
+                </div>
+                <div class="p-3">
+                    <h5>{{data.week}}, {{data.update_time}}, {{data.date}}</h5>
+                    <h3>{{data.city}}</h3>
+                    <span class="weather__description">{{data.wea_day}}, {{data.wea}}</span>
+                </div>
+            </div>
+            <div class="weather__status d-flex flex-row justify-content-center align-items-center mt-3">
+                <div class="p-4 d-flex justify-content-center align-items-center">
+                    <img src="{{url_for('static', filename='svg/weather')}}/moisture.svg">
+                    <span>{{data.humidity}}</span>
+                </div>
+                <div class="p-4 d-flex justify-content-center align-items-center">
+                    <img src="{{url_for('static', filename='svg/weather')}}/thermometer.svg">
+                    <span>{{data.tem}}</span>
+                </div>
+                <div class="p-4 d-flex justify-content-center align-items-center">
+                    <img src="{{url_for('static', filename='svg/weather')}}/wind.svg">
+                    <span>{{data.win_meter}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Weather Forecast -->
+{% set hours_count = ((data.hours | length) / 8) | round | int  %}
+
+{% for i in range(hours_count) -%}
+    {{ weather_hour_cards(data.hours[i: i+8]) }}
+{%- endfor%}
+
+{% endblock %}
